@@ -1,0 +1,25 @@
+/* Fallback styles in case Tailwind CDN is slow to load */
+body {
+  background-color: #000000;
+  color: #e4e4e7;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a; 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46; 
+}

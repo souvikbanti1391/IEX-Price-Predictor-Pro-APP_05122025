@@ -13,13 +13,13 @@ interface ChartsProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-slate-900 text-white p-4 rounded-lg shadow-xl text-sm border border-slate-700 z-50">
-                <p className="font-bold mb-2 text-slate-300">{label}</p>
+            <div className="bg-black/90 backdrop-blur-md text-white p-3 rounded-lg shadow-2xl border border-zinc-800 text-xs">
+                <p className="font-bold mb-2 text-zinc-400 border-b border-zinc-800 pb-1">{label}</p>
                 {payload.map((entry: any, index: number) => (
                     <div key={index} className="flex items-center gap-2 mb-1">
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.stroke || entry.fill }} />
-                        <span className="text-slate-400">{entry.name}:</span>
-                        <span className="font-mono font-bold">
+                        <span className="text-zinc-300">{entry.name}:</span>
+                        <span className="font-mono font-bold text-white">
                             {entry.value > 100 ? Math.round(entry.value) : Number(entry.value).toFixed(2)}
                             {entry.unit}
                         </span>
@@ -50,31 +50,31 @@ export const ValidationChart: React.FC<ChartsProps> = ({ results, config }) => {
     }).filter(Boolean);
 
     return (
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-lg mb-6">
+        <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl mb-6">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h3 className="text-lg font-bold text-slate-100">Historical Validation</h3>
-                    <p className="text-sm text-slate-400">Actual vs {results.bestModel} Predictions (Last {daysToShow} days)</p>
+                    <h3 className="text-lg font-bold text-zinc-100">Historical Validation</h3>
+                    <p className="text-sm text-zinc-500">Actual vs {results.bestModel} Predictions (Last {daysToShow} days)</p>
                 </div>
             </div>
             <div className="h-[400px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
                         <XAxis 
                             dataKey="time" 
-                            stroke="#94a3b8" 
-                            fontSize={12} 
+                            stroke="#52525b" 
+                            fontSize={11} 
                             tickMargin={10} 
                             minTickGap={30}
                         />
                         <YAxis 
-                            stroke="#94a3b8" 
-                            fontSize={12} 
+                            stroke="#52525b" 
+                            fontSize={11} 
                             tickFormatter={(val) => `₹${val}`}
                         />
                         <Tooltip content={<CustomTooltip />} />
-                        <Legend wrapperStyle={{ color: '#94a3b8' }} />
+                        <Legend wrapperStyle={{ color: '#a1a1aa', fontSize: '12px' }} />
                         <Line 
                             type="monotone" 
                             dataKey="Actual" 
@@ -135,11 +135,11 @@ export const ForecastChart: React.FC<ChartsProps> = ({ results, config }) => {
     });
 
     return (
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-lg mb-6">
+        <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl mb-6">
              <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h3 className="text-lg font-bold text-slate-100">Future Price Forecast</h3>
-                    <p className="text-sm text-slate-400">Next {config.forecastDays} days with {config.confidenceLevel}% Confidence Interval</p>
+                    <h3 className="text-lg font-bold text-zinc-100">Future Price Forecast</h3>
+                    <p className="text-sm text-zinc-500">Next {config.forecastDays} days with {config.confidenceLevel}% Confidence Interval</p>
                 </div>
             </div>
             <div className="h-[400px] w-full">
@@ -147,15 +147,15 @@ export const ForecastChart: React.FC<ChartsProps> = ({ results, config }) => {
                     <ComposedChart data={aggregatedData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                         <defs>
                             <linearGradient id="colorRange" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor="#f59e0b" stopOpacity={0.05}/>
+                                <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.2}/>
+                                <stop offset="95%" stopColor="#f59e0b" stopOpacity={0.0}/>
                             </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                        <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} minTickGap={50} />
-                        <YAxis stroke="#94a3b8" fontSize={12} tickFormatter={(val) => `₹${val.toFixed(1)}`} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                        <XAxis dataKey="time" stroke="#52525b" fontSize={11} minTickGap={50} />
+                        <YAxis stroke="#52525b" fontSize={11} tickFormatter={(val) => `₹${val.toFixed(1)}`} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Legend wrapperStyle={{ color: '#94a3b8' }} />
+                        <Legend wrapperStyle={{ color: '#a1a1aa', fontSize: '12px' }} />
                         <Area 
                             type="monotone" 
                             dataKey="Range" 
@@ -199,24 +199,24 @@ export const MetricComparisonChart: React.FC<MetricChartProps> = ({
     })).sort((a, b) => higherIsBetter ? b.value - a.value : a.value - b.value);
 
     return (
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-lg h-full">
+        <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl h-full flex flex-col">
              <div className="mb-4">
-                <h3 className="text-lg font-bold text-slate-100">{title}</h3>
-                {subtitle && <p className="text-sm text-slate-400">{subtitle}</p>}
+                <h3 className="text-sm font-bold text-zinc-200 uppercase tracking-wide">{title}</h3>
+                {subtitle && <p className="text-xs text-zinc-500 mt-1">{subtitle}</p>}
             </div>
-            <div className="h-[250px] w-full">
+            <div className="h-[200px] w-full flex-grow">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#334155" />
-                        <XAxis type="number" stroke="#94a3b8" fontSize={12} hide />
-                        <YAxis dataKey="name" type="category" width={90} stroke="#94a3b8" fontSize={11} fontWeight={500} interval={0} />
+                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#27272a" />
+                        <XAxis type="number" stroke="#52525b" fontSize={10} hide />
+                        <YAxis dataKey="name" type="category" width={90} stroke="#71717a" fontSize={11} fontWeight={500} interval={0} tickLine={false} axisLine={false} />
                         <Tooltip 
-                            cursor={{ fill: '#1e293b' }}
+                            cursor={{ fill: '#27272a' }}
                             content={({ active, payload, label }) => {
                                 if (active && payload && payload.length) {
                                     return (
-                                        <div className="bg-slate-950 border border-slate-700 p-2 rounded text-xs text-white shadow-xl">
-                                            <p className="font-bold">{label}</p>
+                                        <div className="bg-black border border-zinc-800 p-2 rounded text-xs text-white shadow-xl">
+                                            <p className="font-bold mb-1">{label}</p>
                                             <p>{payload[0].value?.toFixed(4)}{unit}</p>
                                         </div>
                                     )
@@ -224,7 +224,7 @@ export const MetricComparisonChart: React.FC<MetricChartProps> = ({
                                 return null;
                             }}
                         />
-                        <Bar dataKey="value" barSize={16} radius={[0, 4, 4, 0]}>
+                        <Bar dataKey="value" barSize={12} radius={[0, 4, 4, 0]}>
                             {data.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={entry.color} />
                             ))}
@@ -256,21 +256,21 @@ export const ResidualChart: React.FC<ChartsProps> = ({ results, config }) => {
     }).filter(Boolean);
 
     return (
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-lg mb-6">
+        <div className="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 shadow-xl mb-6">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h3 className="text-lg font-bold text-slate-100">Residual Error Analysis</h3>
-                    <p className="text-sm text-slate-400">Difference between {results.bestModel} Predictions and Actual Values (Last {daysToShow} days)</p>
+                    <h3 className="text-lg font-bold text-zinc-100">Residual Error Analysis</h3>
+                    <p className="text-sm text-zinc-500">Difference between {results.bestModel} Predictions and Actual Values</p>
                 </div>
             </div>
             <div className="h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                        <XAxis dataKey="time" stroke="#94a3b8" fontSize={12} minTickGap={30} />
-                        <YAxis stroke="#94a3b8" fontSize={12} tickFormatter={(val) => `₹${val.toFixed(2)}`} />
+                        <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                        <XAxis dataKey="time" stroke="#52525b" fontSize={11} minTickGap={30} />
+                        <YAxis stroke="#52525b" fontSize={11} tickFormatter={(val) => `₹${val.toFixed(2)}`} />
                         <Tooltip content={<CustomTooltip />} />
-                        <ReferenceLine y={0} stroke="#cbd5e1" />
+                        <ReferenceLine y={0} stroke="#71717a" />
                         <Area 
                             type="monotone" 
                             dataKey="Residual" 

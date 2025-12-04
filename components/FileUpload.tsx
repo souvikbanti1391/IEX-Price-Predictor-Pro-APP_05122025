@@ -51,13 +51,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded }) => {
     };
 
     return (
-        <div className="w-full mb-8">
+        <div className="w-full">
             <div 
-                className={`relative border-2 border-dashed rounded-xl p-8 transition-all duration-300 cursor-pointer overflow-hidden
+                className={`relative border border-dashed rounded-xl p-8 transition-all duration-300 cursor-pointer overflow-hidden group
                     ${isDragging 
                         ? 'border-blue-500 bg-blue-500/10' 
-                        : 'border-slate-700 bg-slate-800/50 hover:border-blue-500/50 hover:bg-slate-800'}
-                    ${fileName ? 'bg-green-900/10 border-green-500/30' : ''}
+                        : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'}
+                    ${fileName ? 'bg-zinc-950/50 border-emerald-500/30' : ''}
                 `}
                 onClick={() => !fileName && fileInputRef.current?.click()}
                 onDragOver={handleDragOver}
@@ -77,11 +77,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded }) => {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
                     ) : fileName ? (
                         <>
-                            <div className="bg-green-500/20 p-4 rounded-full mb-4">
-                                <CheckCircle className="w-8 h-8 text-green-400" />
+                            <div className="bg-emerald-500/10 p-4 rounded-full mb-4 ring-1 ring-emerald-500/20">
+                                <CheckCircle className="w-8 h-8 text-emerald-400" />
                             </div>
-                            <h3 className="text-xl font-semibold text-slate-100 mb-2">File Loaded Successfully</h3>
-                            <p className="text-slate-400 font-medium">{fileName}</p>
+                            <h3 className="text-xl font-semibold text-zinc-100 mb-2">File Loaded Successfully</h3>
+                            <p className="text-zinc-400 font-medium">{fileName}</p>
                             <button 
                                 onClick={(e) => {
                                     e.stopPropagation();
@@ -90,31 +90,31 @@ const FileUpload: React.FC<FileUploadProps> = ({ onDataLoaded }) => {
                                 }}
                                 className="mt-4 text-sm text-red-400 hover:text-red-300 underline z-10 relative"
                             >
-                                Remove and upload different file
+                                Remove file
                             </button>
                         </>
                     ) : (
                         <>
-                            <div className={`p-4 rounded-full mb-4 ${isDragging ? 'bg-blue-500/20' : 'bg-slate-700/50'}`}>
+                            <div className={`p-4 rounded-full mb-4 transition-colors ${isDragging ? 'bg-blue-500/20' : 'bg-zinc-800 group-hover:bg-zinc-700'}`}>
                                 <Upload className={`w-8 h-8 ${isDragging ? 'text-blue-400' : 'text-blue-500'}`} />
                             </div>
-                            <h3 className="text-lg font-semibold text-slate-100 mb-2">
-                                Upload IEX DAM Market Data
+                            <h3 className="text-lg font-semibold text-zinc-100 mb-2">
+                                Upload Market Data
                             </h3>
-                            <p className="text-slate-400 mb-6 max-w-md">
-                                Drag and drop your Excel/CSV file here, or click to browse.
-                                Supports files exported from IEX (Date, MCP, Volume).
+                            <p className="text-zinc-400 mb-6 max-w-md text-sm leading-relaxed">
+                                Drag and drop your IEX Excel/CSV file here. <br/>
+                                <span className="opacity-50">Requires Date, Time Block, and MCP columns.</span>
                             </p>
-                            <div className="flex gap-4 text-xs text-slate-500 uppercase font-semibold tracking-wider">
-                                <span className="flex items-center gap-1"><FileSpreadsheet size={14} /> .XLSX</span>
-                                <span className="flex items-center gap-1"><FileSpreadsheet size={14} /> .CSV</span>
+                            <div className="flex gap-3 text-[10px] text-zinc-500 uppercase font-bold tracking-widest">
+                                <span className="flex items-center gap-1 bg-zinc-800 px-2 py-1 rounded"><FileSpreadsheet size={12} /> .XLSX</span>
+                                <span className="flex items-center gap-1 bg-zinc-800 px-2 py-1 rounded"><FileSpreadsheet size={12} /> .CSV</span>
                             </div>
                         </>
                     )}
                 </div>
 
                 {error && (
-                    <div className="absolute inset-x-0 bottom-0 bg-red-900/20 p-3 text-center text-red-400 text-sm font-medium border-t border-red-900/50 flex items-center justify-center gap-2">
+                    <div className="absolute inset-x-0 bottom-0 bg-red-950/30 backdrop-blur-sm p-3 text-center text-red-400 text-sm font-medium border-t border-red-900/50 flex items-center justify-center gap-2">
                         <AlertCircle size={16} />
                         {error}
                     </div>
