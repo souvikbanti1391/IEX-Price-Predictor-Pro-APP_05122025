@@ -9,6 +9,12 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      colors: {
+        zinc: {
+          850: '#1f1f22',
+          950: '#09090b',
+        }
+      }
     },
   },
   plugins: [],
