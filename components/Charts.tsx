@@ -20,7 +20,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.stroke || entry.fill }} />
                         <span className="text-zinc-300">{entry.name}:</span>
                         <span className="font-mono font-bold text-white">
-                            {entry.value > 100 ? Math.round(entry.value) : Number(entry.value).toFixed(2)}
+                            {Number(entry.value).toFixed(entry.value > 100 ? 0 : 2)}
                             {entry.unit}
                         </span>
                     </div>
@@ -217,7 +217,7 @@ export const MetricComparisonChart: React.FC<MetricChartProps> = ({
                                     return (
                                         <div className="bg-black border border-zinc-800 p-2 rounded text-xs text-white shadow-xl">
                                             <p className="font-bold mb-1">{label}</p>
-                                            <p>{payload[0].value?.toFixed(4)}{unit}</p>
+                                            <p>{Number(payload[0].value).toFixed(4)}{unit}</p>
                                         </div>
                                     )
                                 }
